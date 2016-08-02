@@ -30,7 +30,7 @@ Let's search on Yahoo:
 
 ```js
 var Nightmare = require('nightmare');
-var nightmare = Nightmare({ show: true })
+var nightmare = Nightmare({ show: true });
 
 nightmare
   .goto('http://yahoo.com')
@@ -38,11 +38,11 @@ nightmare
   .click('form[action*="/search"] [type=submit]')
   .wait('#main')
   .evaluate(function () {
-    return document.querySelector('#main .searchCenterMiddle li a').href
+    return document.querySelector('#main .searchCenterMiddle li a').href;
   })
   .end()
   .then(function (result) {
-    console.log(result)
+    console.log(result);
   })
   .catch(function (error) {
     console.error('Search failed:', error);
@@ -64,20 +64,20 @@ var expect = require('chai').expect; // jshint ignore:line
 
 describe('test yahoo search results', function() {
   it('should find the nightmare github link first', function(done) {
-    var nightmare = Nightmare()
+    var nightmare = Nightmare();
     nightmare
       .goto('http://yahoo.com')
       .type('form[action*="/search"] [name=p]', 'github nightmare')
       .click('form[action*="/search"] [type=submit]')
       .wait('#main')
       .evaluate(function () {
-        return document.querySelector('#main .searchCenterMiddle li a').href
+        return document.querySelector('#main .searchCenterMiddle li a').href;
       })
       .end()
       .then(function(link) {
         expect(link).to.equal('https://github.com/segmentio/nightmare');
         done();
-      })
+      });
   });
 });
 ```
@@ -284,7 +284,7 @@ nightmare
    }, selector) // <-- that's how you pass parameters from Node scope to browser scope
   .then(function(text) {
     // ...
-  })
+  });
 ```
 
 #### .wait(ms)
@@ -392,7 +392,7 @@ nightmare
   })
   .then(function(cookies) { 
     // do something with the cookies
-  })
+  });
 ```
 
 Available properties are documented here: https://github.com/atom/electron/blob/master/docs/api/session.md#sescookiesgetdetails-callback
@@ -421,7 +421,7 @@ nightmare
   // ... other actions ...
   .then(function() { 
     // ... 
-  })
+  });
 ```
 
 Available properties are documented here:  https://github.com/atom/electron/blob/master/docs/api/session.md#sescookiessetdetails-callback
@@ -441,7 +441,7 @@ nightmare
   // ... other actions ...
   .then(function() { 
     // ...
-  })
+  });
 ```
 
 ### Proxies
@@ -496,14 +496,14 @@ You can add your own custom actions to the Nightmare prototype. Here's an exampl
 ```js
 Nightmare.action('size', function (done) {
   this.evaluate_now(function() {
-    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     return {
       height: h,
       width: w
-    }
-  }, done)
-})
+    };
+  }, done);
+});
 
 Nightmare()
   .goto('http://cnn.com')
@@ -525,22 +525,22 @@ We can also create custom namespaces. We do this internally for `nightmare.cooki
 Nightmare.action('style', {
   background: function (done) {
     this.evaluate_now(function () {
-      return window.getComputedStyle(document.body, null).backgroundColor
-    }, done)
+      return window.getComputedStyle(document.body, null).backgroundColor;
+    }, done);
   }
-})
+});
 
 nightmare()
   .goto('http://google.com')
   .style.background()
   .then(function(background) { 
     // ... do something interesting with background  
-  })
+  });
 ```
 
 You can also add custom Electron actions.  The additional Electron action or namespace actions take `name`, `options`, `parent`, `win`, `renderer`, and `done`.  Note the Electron action comes first, mirroring how `.evaluate()` works.  For example:
 
-```javascript
+```js
 Nightmare.action('clearCache',
   function(name, options, parent, win, renderer, done) {
     parent.respondTo('clearCache', function(done) {
@@ -580,7 +580,7 @@ var nightmare = Nightmare({
     preload: path.resolve("custom-script.js")
     //alternative: preload: "absolute/path/to/custom-script.js"
   }
-})
+});
 ```
 
 The only requirement for that script is that you'll need the following prelude:
@@ -613,7 +613,7 @@ nightmare.goto('http://cnn.com')
   .end()
   .then(function(title){
     console.log(title);
-  })
+  });
 ```
 If you save this as `cnn.js`, you can run it on the command line like this:
 
